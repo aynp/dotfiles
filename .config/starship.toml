@@ -1,0 +1,39 @@
+# Inserts a blank line between shell prompts
+#add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[❯](normal)[❯](bold cyan)[❯](green)"
+error_symbol = "[❯](red)[❯](red)[❯](red)"
+vicmd_symbol = "[V](bold green) "
+#success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+#error_symbol = "[✖](bold red) "
+
+
+# Disable the package module, hiding it from the prompt completely
+#[package]
+#disabled = true
+
+# ---- BATTERY ---- #
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+empty_symbol = "🪫"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 20
+style = "bold yellow"
+
+[directory]
+truncation_length = 5
+format = "[$path]($style)[$lock_symbol]($lock_style) "
+
+[username]
+style_user = "bold blue"
+show_always = true
+
