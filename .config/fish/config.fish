@@ -2,7 +2,12 @@ set fish_greeting                                 # Supresses fish's intro messa
 set TERM "xterm-256color"                         # Sets the terminal type
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  #  atuin init fish | source
+end
+
+if set -q abbr_init
+   set -U abbr_init
+   abbr -a so wow
 end
 
 # Functions needed for !! and !$
@@ -50,6 +55,8 @@ alias l.='exa -a | egrep "^\."'
 alias update='sudo pacman -Syu && yay'
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
 
+alias copy='wl-copy'
+
 # git
 
 # confirm before overwriting something
@@ -64,9 +71,27 @@ alias wf='neofetch --config /home/aryan/.config/neofetch/configs/waifu.conf'
 
 alias cfile='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
+##
+set EDITOR nvim
+
+# load_nvm > /dev/stderr
+
+export KUBECONFIG={$HOME}/.kube/config
+export GOPATH=/home/aryan/go
+export GOBIN={$GOPATH}/bin
+
 starship init fish | source
 zoxide init fish | source
 pfetch
 
 alias cd='z'
 
+# pnpm
+set -gx PNPM_HOME "/home/aryan/.local/share/pnpm"
+set -gx CARGO_BIN "/home/aryan/.cargo/bin"
+set -gx PATH "$PNPM_HOME" "$CARGO_BIN" $PATH
+# pnpm end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
