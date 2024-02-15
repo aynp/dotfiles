@@ -25,57 +25,89 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
+
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+
   vim.keymap.set('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
+local lsp_flags = {}
 
-require('lspconfig')['tsserver'].setup {
+local lspconfig = require('lspconfig')
+
+lspconfig['tsserver'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
   capabilities = capabilities
 }
 
-require('lspconfig')['rust_analyzer'].setup {
+lspconfig['rust_analyzer'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
-  -- Server-specific settings...
   settings = {
     ["rust-analyzer"] = {}
   },
   capabilities = capabilities
 }
 
-require("lspconfig").lua_ls.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
 
-require("lspconfig").gopls.setup {
+lspconfig.gopls.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
 
-require("lspconfig").astro.setup {
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+lspconfig.jdtls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+lspconfig.dockerls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+lspconfig.docker_compose_language_service.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+lspconfig.astro.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
     typescript = {
       tsdk = 'node_modules/typescript/lib'
     }
+  }
+}
+
+lspconfig.yamlls.setup {
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+      },
+    },
   }
 }
