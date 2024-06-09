@@ -96,7 +96,3 @@ set -gx PATH "$PNPM_HOME" "$CARGO_BIN" $PATH
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/aryan/.local/google-cloud-sdk/path.fish.inc' ]; . '/home/aryan/.local/google-cloud-sdk/path.fish.inc'; end
-

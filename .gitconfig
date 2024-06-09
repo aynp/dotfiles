@@ -1,6 +1,4 @@
-[user]
-	name = Aryan
-	email = aryan.pathania2003@gmail.com
+[core]
 	editor = nvim
 [credential "https://github.com"]
 	helper = 
@@ -8,11 +6,11 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
-[core]
-	editor = nvim
-[url "https://invent.kde.org/"]
-	insteadOf = kde:
-[url "ssh://git@invent.kde.org/"]
-	pushInsteadOf = kde:
-[init]
-	defaultBranch = main
+[user]
+	name = Aryan
+	email = 75756768+aynp@users.noreply.github.com
+	signingkey = /home/aryan/.ssh/id_ed25519
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
