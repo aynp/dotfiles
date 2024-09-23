@@ -23,6 +23,8 @@ M.map("n", "<C-u>", "<C-u>zz")
 M.map("n", "n", "nzzzv")
 M.map("n", "N", "Nzzzv")
 
+-- M.map("t", "<Esc>", "")
+
 -- Center after up down
 -- M.map("n", "j", "jzzzv")
 -- M.map("n", "k", "kzzzv")

@@ -92,6 +92,16 @@ lspconfig.docker_compose_language_service.setup {
   capabilities = capabilities
 }
 
+lspconfig.taplo.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
 lspconfig.astro.setup {
   on_attach = on_attach,
   capabilities = capabilities,

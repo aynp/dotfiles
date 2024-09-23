@@ -57,7 +57,7 @@ return require('packer').startup(function(use)
   use 'christoomey/vim-tmux-navigator'
 
   -- Copilot
-  use 'github/copilot.vim'
+  -- use 'github/copilot.vim'
 
   -- CP Helper
   use 'p00f/cphelper.nvim'
