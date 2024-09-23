@@ -47,72 +47,53 @@ local lsp_flags = {}
 
 local lspconfig = require('lspconfig')
 
-lspconfig['tsserver'].setup {
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities
+-- Function to set up an LSP server with common configurations
+local function setup_lsp(server_name, config)
+  config = vim.tbl_deep_extend("force", {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  }, config or {})
+
+  lspconfig[server_name].setup(config)
+end
+
+-- List of LSP servers to set up with default configurations
+local servers = {
+  "ts_ls",
+  "lua_ls",
+  "gopls",
+  "clangd",
+  "jdtls",
+  "dockerls",
+  "docker_compose_language_service",
+  "taplo",
+  "pyright",
 }
 
-lspconfig['rust_analyzer'].setup {
-  on_attach = on_attach,
-  flags = lsp_flags,
+-- Set up each LSP server with default configs
+for _, server in ipairs(servers) do
+  setup_lsp(server)
+end
+
+-- Custom setups for specific servers
+setup_lsp("lua_ls", {
   settings = {
-    ["rust-analyzer"] = {}
-  },
-  capabilities = capabilities
-}
-
-lspconfig.lua_ls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.gopls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.clangd.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.jdtls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.dockerls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.docker_compose_language_service.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.taplo.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-lspconfig.astro.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    typescript = {
-      tsdk = 'node_modules/typescript/lib'
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
     }
   }
-}
+})
 
-lspconfig.yamlls.setup {
+setup_lsp("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {}
+  }
+})
+
+setup_lsp("yamlls", {
   settings = {
     yaml = {
       schemas = {
@@ -120,4 +101,4 @@ lspconfig.yamlls.setup {
       },
     },
   }
-}
+})

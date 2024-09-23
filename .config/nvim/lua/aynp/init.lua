@@ -1,6 +1,5 @@
 require("aynp.set")
 require("aynp.keymaps")
-require("aynp.packer")
+require("aynp.lazy")
 require("aynp.lsp-config")
-require("aynp.git")
 

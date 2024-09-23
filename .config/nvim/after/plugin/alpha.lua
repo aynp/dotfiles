@@ -64,3 +64,4 @@ dashboard.section.footer.opts.hl = "Comment"
 
 dashboard.opts.opts.noautocmd = true
 alpha.setup(dashboard.opts)
+
