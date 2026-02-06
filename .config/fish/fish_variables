@@ -1,19 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __fish_initialized:3400
-SETUVAR _fish_abbr_c:touch
-SETUVAR _fish_abbr_d:docker
-SETUVAR _fish_abbr_e:nvim
-SETUVAR _fish_abbr_g:g\x2b\x2b\x20\x2dstd\x3dc\x2b\x2b20
-SETUVAR _fish_abbr_i:sudo\x20pacman\x20\x2dS
-SETUVAR _fish_abbr_ia:yay\x20\x2dS
-SETUVAR _fish_abbr_k:kubectl
-SETUVAR _fish_abbr_kaf:kubectl\x20apply\x20\x2df
-SETUVAR _fish_abbr_p:cat
-SETUVAR _fish_abbr_pf:pfetch
-SETUVAR _fish_abbr_r:sudo\x20pacman\x20\x2dRs
-SETUVAR _fish_abbr_x:exit
-SETUVAR fish_color_autosuggestion:555\x1ebrblack
+SETUVAR __fish_initialized:3800
+SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:blue
 SETUVAR fish_color_comment:red
@@ -30,15 +18,15 @@ SETUVAR fish_color_operator:brcyan
 SETUVAR fish_color_param:cyan
 SETUVAR fish_color_quote:yellow
 SETUVAR fish_color_redirection:cyan\x1e\x2d\x2dbold
-SETUVAR fish_color_search_match:\x2d\x2dbackground\x3d111
+SETUVAR fish_color_search_match:white\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
 SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_pager_color_completion:normal
-SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
-SETUVAR fish_pager_color_prefix:cyan\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_description:yellow\x1e\x2di
+SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/home/aryan/\x2esdkman/candidates/jbang/0\x2e114\x2e0/bin\x1e/home/aryan/\x2esdkman/candidates/java/current/bin\x1e/home/aryan/\x2etiup/bin\x1e/home/aryan/\x2eyarn/bin\x1e/usr/local/go/bin\x1e/home/aryan/\x2elocal/bin\x1e/home/aryan/\x2elocal/solana\x2drelease/bin\x1e/home/aryan/\x2elocal/solana\x2drelease\x1e/home/aryan/\x2elocal/npm\x2dpackages/bin\x1e/home/aryan/\x2elocal/npm\x2dpackages\x1e/home/aryan/go/bin
+SETUVAR fish_user_paths:/Users/aryan/Tools/grafana/bin\x1e/opt/homebrew/opt/go\x401\x2e21/bin\x1e/Users/aryan/\x2elocal\x1e/Users/aryan/\x2eopencode/bin\x1e/Users/aryan/go/bin\x1e/Users/aryan/\x2elocal/bin\x1e/Users/aryan/\x2ekrew/bin\x1e/Users/aryan/Tools/google\x2dcloud\x2dsdk/bin\x1e/opt/homebrew/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS

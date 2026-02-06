@@ -1,10 +1,15 @@
 set fish_greeting                                 # Supresses fish's intro message
 set TERM "xterm-256color"                         # Sets the terminal type
 
+source $HOME/.config/fish/abbr.fish
+if test -f $HOME/.config/fish/secrets.fish
+    source $HOME/.config/fish/secrets.fish
+end
+
 if status is-interactive
   starship init fish | source
   zoxide init fish | source
-  pfetch
+  #pfetch
 end
 
 # Functions needed for !! and !$
@@ -41,39 +46,40 @@ end
 # cd to zoxide
 alias cd='z'
 
-# ls to exa
-alias ls='exa --color=always --group-directories-first'
-alias ll='exa -l --color=always --group-directories-first'
-alias la='exa -al --color=always --group-directories-first'
-alias lt='exa -T --color=always --group-directories-first'
-alias lat='exa -aT --color=always --group-directories-first'
-alias l.='exa -a | egrep "^\."'
-
-# package managers
-alias update='sudo pacman -Syu && yay'
-alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+# ls to eza
+alias ls='eza --color=always --group-directories-first'
+alias ll='eza -l --color=always --group-directories-first'
+alias la='eza -al --color=always --group-directories-first'
+alias lt='eza -T --color=always --group-directories-first'
+alias lat='eza -aT --color=always --group-directories-first'
+alias l.='eza -a | egrep "^\."'
 
 # Misc
-alias copy='wl-copy'
-alias ydl='yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4'
-alias wf='neofetch --config /home/aryan/.config/neofetch/configs/waifu.conf'
-alias cfile='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-
 export KUBECONFIG={$HOME}/.kube/config
-export GOPATH=/home/aryan/go
-export GOBIN={$GOPATH}/bin
 
 set EDITOR nvim
-
-# pnpm
-set -gx PNPM_HOME "/home/aryan/.local/share/pnpm"
-set -gx CARGO_BIN "/home/aryan/.cargo/bin"
-set -gx PATH "$PNPM_HOME" "$CARGO_BIN" $PATH
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-# GCP
-if [ -f '/home/aryan/.local/google-cloud-sdk/path.fish.inc' ]; . '/home/aryan/.local/google-cloud-sdk/path.fish.inc'; end
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+
+# opencode
+fish_add_path /Users/aryan/.opencode/bin
+
+# pnpm
+set -gx PNPM_HOME "/Users/aryan/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+pfetch
+
+set -gx GITHUB_TOKEN (gh auth token)
+direnv hook fish | source
 
