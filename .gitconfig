@@ -1,18 +1,27 @@
-[core]
-	editor = nvim
 [credential "https://github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [user]
-	name = Aryan
-	email = 75756768+aynp@users.noreply.github.com
-	signingkey = /home/aryan/.ssh/id_ed25519
+	signingkey = 61C8FF14F97741FA
+	name = Aryan Pathania
+	email = aryan@mercari.com
 [commit]
 	gpgsign = true
+[tag]
+	gpgSign = true
 [gpg]
-	format = ssh
-[pull]
-	rebase = true
+	program = gpg
+[credential]
+	helper = store
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/uth
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[core]
+	excludesfile = /Users/aryan/.gitignore_global
