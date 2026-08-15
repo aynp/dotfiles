@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvim --version)",
+      "Read(//Users/aryan/.local/share/nvim/lazy/**)",
+      "Read(//Users/aryan/.local/share/nvim/lazy/nvim-treesitter/parser/**)",
+      "Read(//private/tmp/**)",
+      "Bash(nvim --headless r.md -c 'sleep 4' -c 'lua io.stderr:write\\(\"\\\\nZZDONE ft=\"..vim.bo.filetype..\"\\\\n\"\\)' -c 'qa!')",
+      "Read(//opt/homebrew/Cellar/neovim/0.12.4/share/nvim/runtime/lua/vim/treesitter/**)",
+      "Read(//opt/homebrew/Cellar/neovim/0.12.4/share/nvim/runtime/lua/vim/**)",
+      "Bash(nvim --headless -u NONE -c 'lua *)"
+    ]
+  }
+}

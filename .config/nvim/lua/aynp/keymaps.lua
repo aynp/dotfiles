@@ -13,7 +13,8 @@ end
 -- Delete to black hole register
 M.map("n", "d", "\"_d")
 M.map("x", "d", "\"_d")
-M.map("n", "<leader>p", "\"_dP")
+-- Paste over a visual selection without clobbering the unnamed register
+M.map("x", "<leader>p", "\"_dP")
 
 -- Go half page up/down and center the cursor
 M.map("n", "<C-d>", "<C-d>zz")
@@ -30,5 +31,4 @@ M.map("n", "N", "Nzzzv")
 -- M.map("n", "k", "kzzzv")
 
 return M
-
 

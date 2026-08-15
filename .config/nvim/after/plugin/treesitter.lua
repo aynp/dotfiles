@@ -1,42 +1,85 @@
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "cpp", "lua", "rust", "go", "ocaml" },
+-- nvim-treesitter `main` branch.
+--
+-- The old `require('nvim-treesitter.configs').setup{}` API only exists on the
+-- frozen `master` branch and does not work here. On `main` there are two jobs:
+--   1. install parsers  -> require('nvim-treesitter').install()
+--   2. start highlighting -> vim.treesitter.start(), per buffer
+-- There is no `auto_install` any more, so the wanted parsers are listed
+-- explicitly below.
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+local ts = require("nvim-treesitter")
 
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+ts.setup()
 
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
+local ensure_installed = {
+  -- explicitly wanted
+  "c", "cpp", "lua", "rust", "go", "ocaml",
+  -- markdown_inline is required for markdown injections (and render-markdown);
+  -- markdown alone is not enough.
+  "markdown", "markdown_inline",
+  -- carried over from the previous auto_install set
+  "astro", "bash", "csv", "cue", "dockerfile", "fish",
+  "git_config", "gitattributes", "gitcommit", "gitignore",
+  "gomod", "gosum", "html", "ini", "json", "make", "pem", "proto",
+  "python", "requirements", "sql", "ssh_config", "terraform", "tmux",
+  "toml", "typescript", "xml", "yaml",
 }
+
+-- Install only what is missing, so startup does not shell out to a compiler
+-- on every launch.
+local installed = {}
+for _, lang in ipairs(ts.get_installed("parsers")) do
+  installed[lang] = true
+end
+
+local missing = vim.tbl_filter(function(lang)
+  return not installed[lang]
+end, ensure_installed)
+
+if #missing > 0 then
+  ts.install(missing)
+end
+
+-- Enable treesitter highlighting per buffer.
+local max_filesize = 100 * 1024 -- 100 KB
+
+local function start(buf, filetype)
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return
+  end
+
+  -- Skip very large files; treesitter highlighting gets slow.
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+  if ok and stats and stats.size > max_filesize then
+    return
+  end
+
+  -- Only start if a parser is actually available for this filetype.
+  local lang = vim.treesitter.language.get_lang(filetype)
+  if not lang then
+    return
+  end
+  if not pcall(vim.treesitter.language.add, lang) then
+    return
+  end
+
+  pcall(vim.treesitter.start, buf, lang)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("aynp_treesitter_start", { clear = true }),
+  callback = function(args)
+    start(args.buf, args.match)
+  end,
+})
+
+-- after/plugin runs after FileType has already fired for any file passed on the
+-- command line, so catch up on buffers that are already loaded.
+for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+  if vim.api.nvim_buf_is_loaded(buf) then
+    local ft = vim.bo[buf].filetype
+    if ft ~= "" then
+      start(buf, ft)
+    end
+  end
+end

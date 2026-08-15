@@ -27,11 +27,22 @@ require("lazy").setup({
 
   -- LSP configurations
   { "neovim/nvim-lspconfig" },
-  { "williamboman/mason.nvim",           config = true },
-  { "williamboman/mason-lspconfig.nvim", config = true },
+  -- NOTE: no `config = true` here. These are set up explicitly in
+  -- lua/aynp/lsp-config.lua; a bare config = true would call setup() with no
+  -- options first, which auto-enables every installed server and produces a
+  -- duplicate client for each one.
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
 
-  -- Treesitter for syntax highlighting
-  { "nvim-treesitter/nvim-treesitter",   build = ":TSUpdate" },
+  -- Treesitter for syntax highlighting.
+  -- NOTE: `main` branch, not `master`. master is frozen and its query
+  -- predicates use the pre-0.11 API, which crashes the markdown injection
+  -- query on this Neovim version.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
+  },
 
   -- Commenting functionality
   { "numToStr/Comment.nvim",             config = true },
@@ -42,10 +53,12 @@ require("lazy").setup({
   -- Autocomplete
   { "hrsh7th/nvim-cmp" },
   { "hrsh7th/cmp-nvim-lsp" },
-  { "L3MON4D3/LuaSnip",                  version = "v<CurrentMajor>.*" },
+  { "hrsh7th/cmp-buffer" },
+  { "saadparwaiz1/cmp_luasnip" },
+  { "L3MON4D3/LuaSnip",                  version = "v2.*" },
 
   -- Icons
-  { "kyazdani42/nvim-web-devicons" },
+  { "nvim-tree/nvim-web-devicons" },
 
   -- File explorer tree
   { "nvim-tree/nvim-tree.lua",           config = true },
@@ -65,6 +78,9 @@ require("lazy").setup({
   -- Markdown preview
   { "iamcco/markdown-preview.nvim",      build = "cd app && npm install",             ft = { "markdown" } },
 
+  -- In-buffer markdown rendering
+  { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown" }, config = true },
+
   -- Vim be good (practice vim)
   { "ThePrimeagen/vim-be-good" },
 
@@ -83,4 +99,7 @@ require("lazy").setup({
 
   -- Greeter (dashboard)
   { "goolord/alpha-nvim",                requires = { "nvim-tree/nvim-web-devicons" } },
+
+  -- Copilot
+  { "github/copilot.vim" }
 })

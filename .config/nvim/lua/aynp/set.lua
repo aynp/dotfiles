@@ -3,6 +3,9 @@ vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.g.vimwiki_list = {{path = '~/Aryan/wiki', syntax = 'markdown', ext = '.md'}}
+-- Only treat .md files inside the wiki path as vimwiki; everything else stays
+-- filetype=markdown so markdown plugins (render-markdown) attach.
+vim.g.vimwiki_global_ext = 0
 
 -- Relative numbering
 vim.opt.nu               = true

@@ -46,7 +46,7 @@ dashboard.section.buttons.val = {
   dashboard.button("e", "New file", ":ene <BAR> startinsert <CR>"),
   dashboard.button("f", "Find File", ":Telescope find_files<CR>"),
   dashboard.button("r", "Find History", ":Telescope oldfiles<CR>"),
-  dashboard.button("h", "Find Help", ":Telescope oldfiles<CR>"),
+  dashboard.button("h", "Find Help", ":Telescope help_tags<CR>"),
   dashboard.button("b", "Find Buffer", ":Telescope buffers<CR>"),
   dashboard.button("q", "Quit NVIM", ":qa<CR>"),
 
